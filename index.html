@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<!--
+  Template: SWISS v1.0
+  Author: Haruki Tominaga
+  License: https://amix-design.com/tominaga/eyan-theme/license 
+  © 2025 EYAN / トミナガハルキ
+-->
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    
+    <title>Portfolio -  SWISS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* =========================================
+           カスタマイズ設定エリア (CSS)
+           色を変更したい場合はここを編集してください
+           ========================================= */
+        :root {
+            /* アクセントカラー (文字色や強調に使われます) */
+            --accent-color: #ff3333; 
+            
+            /* 基本の文字色 */
+            --text-color: #111;      
+            
+            /* 背景色 */
+            --bg-color: #fff;        
+            
+            /* グリッド線の色 */
+            --grid-color: #eee;      
+        }
+
+        /* --- 基本設定 --- */
+        body { 
+            font-family: 'Inter', 'Noto Sans JP', sans-serif; 
+            background-color: var(--bg-color); 
+            color: var(--text-color); 
+            margin: 0; padding: 0; 
+            overflow-x: hidden; 
+        }
+        
+        /* --- 背景グリッド装飾 --- */
+        .grid-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; pointer-events: none; z-index: 0; }
+        .grid-line { border-right: 1px solid var(--grid-color); }
+        
+        /* --- レイアウトコンテナ --- */
+        .container { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr; min-height: 100vh; }
+        
+        /* --- 左パネル（固定サイドバー） --- */
+        .left-panel { padding: 4rem; position: sticky; top: 0; height: 100vh; display: flex; flex-direction: column; justify-content: space-between; box-sizing: border-box; background: var(--bg-color); }
+        .brand { font-size: 5rem; font-weight: 900; line-height: 0.8; letter-spacing: -0.04em; text-transform: uppercase; margin: 0; }
+        .brand span { color: var(--accent-color); }
+        .role { font-weight: 700; font-size: 1.2rem; margin-top: 1rem; border-top: 4px solid var(--text-color); padding-top: 1rem; display: inline-block; }
+        .bio { max-width: 400px; font-size: 1rem; line-height: 1.6; margin-top: 2rem; color: #555; }
+        
+        /* --- 右パネル（ギャラリー） --- */
+        .right-panel { padding: 4rem 4rem 4rem 0; border-left: 1px solid var(--grid-color); }
+        
+        /* 作品アイテム */
+        .work-item { 
+            margin-bottom: 6rem; cursor: pointer; position: relative; 
+            opacity: 0; transform: translateY(40px); 
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .work-item.is-visible { opacity: 1; transform: translateY(0); }
+        
+        .work-number { font-size: 1.5rem; font-weight: 900; color: var(--accent-color); position: absolute; top: -1rem; left: -3rem; transition: transform 0.3s ease; }
+        .work-img-wrapper { overflow: hidden; width: 100%; aspect-ratio: 3/2; background: #f0f0f0; }
+        .work-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: filter 0.5s, transform 0.5s; display: block; }
+        
+        /* ホバーエフェクト */
+        .work-item:hover .work-img { filter: grayscale(0%); transform: scale(1.03); }
+        .work-item:hover .work-number { transform: translateX(5px); }
+        
+        .work-title { font-size: 2rem; font-weight: 900; margin: 1rem 0 0.5rem; text-transform: uppercase; letter-spacing: -0.02em; }
+        .work-cat { font-size: 0.9rem; font-weight: 700; color: #888; }
+        
+        /* --- リンク --- */
+        .links-list { list-style: none; padding: 0; margin: 0; }
+        .links-list li { margin-bottom: 0.5rem; opacity: 0; animation: slideIn 0.8s forwards; }
+        .links-list li a { font-weight: 700; text-decoration: none; color: var(--text-color); font-size: 1.2rem; display: block; transition: color 0.2s; }
+        .links-list li a:hover { color: var(--accent-color); text-decoration: underline; }
+
+        /* --- アニメーション定義 --- */
+        .animate-init { opacity: 0; animation: slideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* --- モーダル（詳細表示） --- */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 51, 51, 0.95); /* デフォルト赤の透過背景（JSで変更可能にするため固定） */
+            background: color-mix(in srgb, var(--accent-color), transparent 5%); /* CSS変数対応 */
+            z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 2rem; box-sizing: border-box;
+        }
+        .modal.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content {
+            background: var(--bg-color);
+            padding: 2.5rem;
+            max-width: 900px; width: 100%;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column;
+            transform: translateY(20px); transition: transform 0.4s ease;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .modal.active .modal-content { transform: translateY(0); }
+
+        .modal-img { 
+            width: 100%; height: auto; 
+            max-height: 60vh; object-fit: contain; 
+            display: block; margin: 0 auto 1.5rem; 
+            background: #eee;
+        }
+
+        .close-btn {
+            margin-top: 1.5rem; background: var(--text-color); color: var(--bg-color);
+            border: none; padding: 1rem 2rem; font-weight: 700; cursor: pointer;
+            align-self: flex-start; transition: background 0.2s;
+        }
+        .close-btn:hover { background: var(--accent-color); }
+
+        /* --- スマートフォン・タブレット対応 --- */
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            .left-panel { position: relative; height: auto; padding: 2rem; border-bottom: 1px solid var(--grid-color); min-height: auto; }
+            .brand { font-size: 3.5rem; }
+            .right-panel { padding: 2rem; border-left: none; }
+            .work-number { position: static; display: block; margin-bottom: 0.5rem; color: var(--accent-color); font-size: 1.2rem; }
+            .grid-bg { display: none; }
+            
+            .modal { padding: 1rem; align-items: center; } 
+            .modal-content { padding: 1.5rem; max-height: 85vh; }
+            .modal-img { max-height: 40vh; margin-bottom: 1rem; } 
+            .work-title { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"><div class="grid-line"></div></div>
+    
+    <div class="container">
+        <aside class="left-panel">
+            <div class="animate-init">
+                <h1 id="user-name" class="brand"></h1>
+                <span id="user-role" class="role animate-init delay-1"></span>
+                <p id="user-bio" class="bio animate-init delay-2"></p>
+            </div>
+            <div class="animate-init delay-3">
+                <ul id="links-list" class="links-list"></ul>
+                <p style="margin-top: 2rem; font-size: 0.8rem; font-weight: 700; opacity: 0.5;">&copy; <span id="user-credit"></span></p>
+            </div>
+        </aside>
+
+        <main id="gallery-list" class="right-panel"></main>
+    </div>
+
+    <div id="modal" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <img id="modal-img" class="modal-img" src="" alt="Project Image">
+            <h2 id="modal-title" style="margin:0; font-weight:900; text-transform:uppercase; line-height: 1.1;"></h2>
+            <p id="modal-cat" style="color:#666; font-weight:700; margin-top:0.5rem;"></p>
+            <button class="close-btn" onclick="closeModal()">CLOSE PROJECT</button>
+        </div>
+    </div>
+
+    <script>
+        /* =========================================
+           【簡単カスタマイズ設定】
+           以下の内容を書き換えるだけで、あなたのポートフォリオになります。
+           ========================================= */
+        const config = {
+            // 1. あなたの名前（<span>タグで囲むとアクセントカラーになります）
+            name: "YAMADA<br><span>TARO</span>",
+            
+            // 2. 肩書き
+            role: "Graphic Designer / Art Director",
+            
+            // 3. 自己紹介文（<br>で改行できます）
+            bio: "Form follows function.<br>本質を捉え、機能美を追求したデザインを提供します。<br>ミニマルでありながら、強い印象を残す視覚表現を目指しています。",
+            
+            // 4. クレジット表記（©の後に続く文字）
+            credit: "YAMADA TARO",
+
+            /* 5. 作品リスト設定（オプション）
+             - ここに記述がある番号の作品は、指定したタイトルとカテゴリで表示されます。
+             - 記述がない番号（例：image7以降）は、自動的に「Project XX」「New Work」として表示されます。
+             - 画像ファイルさえフォルダにあれば、最大18枚まで自動で表示されます。
+            */
+            works: [
+                { title: "Swiss Typography", category: "Graphic Design" }, // image1.jpg
+                { title: "Museum Identity", category: "Branding" },       // image2.jpg
+                { title: "Architectural Mag", category: "Editorial" },    // image3.jpg
+                { title: "Mono Packaging", category: "Package Design" },  // image4.jpg
+                { title: "Geometric Poster", category: "Art Work" },      // image5.jpg
+                { title: "New Project", category: "Sample Design" },     // image6.jpg
+                // image7以降は記述しなくても自動で表示されます
+            ],
+
+            // 6. リンク設定
+            links: [
+                { label: "Instagram", url: "#" },
+                { label: "X (Twitter)", url: "#" },
+                { label: "Contact", url: "mailto:your-email@example.com" }
+            ]
+        };
+
+        /* =========================================
+           以下はプログラム本体です
+           ========================================= */
+        document.addEventListener('DOMContentLoaded', () => {
+            // テキスト情報の流し込み
+            document.getElementById('user-name').innerHTML = config.name;
+            document.getElementById('user-role').textContent = config.role;
+            document.getElementById('user-bio').innerHTML = config.bio;
+            document.getElementById('user-credit').innerHTML = config.credit;
+
+            // リンクの生成
+            const ul = document.getElementById('links-list');
+            config.links.forEach((link, i) => {
+                const isExternal = link.url.startsWith('http');
+                const attrs = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
+                ul.innerHTML += `<li style="animation-delay: ${0.4 + (i * 0.1)}s"><a href="${link.url}" ${attrs}>→ ${link.label}</a></li>`;
+            });
+
+            // ギャラリーの生成
+            const list = document.getElementById('gallery-list');
+            const maxImages = 18; // 18枚までチェックします
+
+            // 設定リストの数ではなく、maxImagesの数だけループを回します
+            for (let i = 0; i < maxImages; i++) {
+                
+                const num = (i + 1).toString().padStart(2, '0');
+                // 画像パス（image/image1.jpg, image/image2.jpg...）
+                const imgPath = `image/image${i + 1}.jpg`; 
+
+                // 設定があればそれを使い、なければデフォルト設定を使う
+                const work = config.works[i] || { 
+                    title: `Project ${num}`, 
+                    category: "New Work" 
+                };
+
+                const div = document.createElement('div');
+                div.className = 'work-item';
+                
+                /* 重要: 画像読み込みエラー時（ファイルがない時）に
+                   親要素(.work-item)ごと非表示にする処理をonerrorに入れています
+                */
+                div.innerHTML = `
+                    <span class="work-number">${num}</span>
+                    <div class="work-img-wrapper">
+                        <img src="${imgPath}" class="work-img" alt="${work.title}" 
+                             onerror="this.closest('.work-item').style.display='none';">
+                    </div>
+                    <h3 class="work-title">${work.title}</h3>
+                    <div class="work-cat">${work.category}</div>
+                `;
+                
+                div.onclick = () => openModal(work, imgPath);
+                list.appendChild(div);
+            }
+
+            // スクロール検知アニメーション
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            // DOMに追加された要素に対して監視を開始
+            // (display:noneになった要素は画面に映らないので問題なく無視されます)
+            document.querySelectorAll('.work-item').forEach(item => observer.observe(item));
+        });
+
+        // モーダル操作関数
+        const modal = document.getElementById('modal');
+
+        function openModal(work, imgPath) {
+            document.getElementById('modal-img').src = imgPath;
+            document.getElementById('modal-title').textContent = work.title;
+            document.getElementById('modal-cat').textContent = work.category;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    </script>
+</body>
+</html>
