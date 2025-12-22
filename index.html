@@ -76,6 +76,14 @@
         
         .work-title { font-size: 2rem; font-weight: 700; margin: 1rem 0 0.5rem; text-transform: none; letter-spacing: -0.02em; }
         .work-cat { font-size: 0.9rem; font-weight: 700; color: #888; }
+        .work-cat a {
+          color: #888;
+          text-decoration: underline;
+          transition: color 0.2s;
+        }
+        .work-cat a:hover {
+          color: var(--accent-color);
+        }
         
         /* --- リンク --- */
         .links-list { list-style: none; padding: 0; margin: 0; }
@@ -221,9 +229,9 @@
                 { title: "Notion個別サポート（Coming soon）", category: "マンツーマンで寄り添う３か月のサポートサービス" }, // image1.jpg
                 { title: "Notion×デザイン講座（Coming soon）", category: "オンラインセミナーのお知らせ" },       // image2.jpg
                 { title: "かんたん！はかどる！Notionデザイン＆アイデアブック", category: "Notionの基礎からページデザイン模写まで盛りだくさんの一冊です。テンプレートなどの豪華特典も。Notionライフのおともにぜひ！" },    // image3.jpg
-                { title: "Notionテンプレート", category: "公開中のテンプレートはこちら" },  // image4.jpg
+                { title: "Notionテンプレート", category: '<a href="https://www.notion.so/@tsubuan" target="_blank">公開中のテンプレートはこちら →</a>' },  // image4.jpg
                 { title: "デザイン制作", category: "Kindle表紙など（リピーターさまのみ受付）" },      // image5.jpg
-                { title: "デザイン制作", category: "Kindle表紙など（リピーターさまのみ受付）" },     // image6.jpg
+                // image6.jpg
                 // image7以降は記述しなくても自動で表示されます
             ],
 
