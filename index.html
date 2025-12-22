@@ -161,6 +161,17 @@
               background: var(--accent-color);
         }
 
+        .footer-link {
+              color: #aaa;
+              text-decoration: none;
+              margin-right: 1rem;
+              transition: color 0.2s;
+              }
+        .footer-link:hover {
+              color: var(--text-color);
+              }
+      
+
         /* --- スマートフォン・タブレット対応 --- */
         @media (max-width: 900px) {
             .container { grid-template-columns: 1fr; }
@@ -190,10 +201,10 @@
             <div class="animate-init delay-3">
                 <ul id="links-list" class="links-list"></ul>
                 <p style="margin-top: 2rem; font-size: 0.8rem; font-weight: 700; opacity: 0.5;">© <span id="user-credit"></span></p>
-                <p style="font-size: 0.7rem; opacity: 0.5; margin-top: 0.5rem;">
-                <a href="https://tsubuan.notion.site/2cf2674f5c5880ce91e4e439fb20b1c1?pvs=105" style="color: #888; text-decoration: none; margin-right: 1rem;">お問い合わせ</a>
-                <a href="privacy.html" style="color: #888; text-decoration: none;">プライバシーポリシー</a>
-            </p>
+                <p style="font-size: 0.7rem; margin-top: 0.5rem;">
+                  <a href="https://tsubuan.notion.site/2cf2674f5c5880ce91e4e439fb20b1c1?pvs=105" class="footer-link">お問い合わせ</a>
+                  <a href="privacy.html" class="footer-link">プライバシーポリシー</a>
+                </p>
             </div>
         </aside>
 
