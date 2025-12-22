@@ -336,8 +336,8 @@
 
         function openModal(work, imgPath) {
             document.getElementById('modal-img').src = imgPath;
-            document.getElementById('modal-title').textContent = work.title;
-            document.getElementById('modal-cat').innerHTML = work.category;
+            document.getElementById('modal-title').innerHTML = work.title;
+            document.getElementById('modal-cat').innerHTML = work.modalText || work.category;
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
