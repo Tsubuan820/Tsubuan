@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notion個別サポート demo | TSUBUAN DESIGN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent-color: #fbe251;
+      --text-color: #333333;
+      --bg-color: #faf9f7;
+      --grid-color: #ededed;
+    }
+
+    body {
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      background: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      color: var(--text-color);
+    }
+
+    /* ---- LP本体 ---- */
+    .lp-content {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 2rem 5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-img {
+      width: 100%;
+      height: auto;
+      max-height: 60vh;
+      object-fit: cover;
+      display: block;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+    }
+
+    /* ---- タイトル ---- */
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0 0 0.3rem;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-title em {
+      font-style: normal;
+      background: var(--accent-color);
+      padding: 0 0.15em;
+    }
+
+    .modal-concept {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #888;
+      margin: 0 0 2.5rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 3px solid var(--text-color);
+      letter-spacing: 0.04em;
+      line-height: 1.7;
+    }
+
+    /* ---- セクション共通 ---- */
+    .section {
+      margin-bottom: 5rem;
+    }
+
+    .section-label {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-left: 4px solid var(--accent-color);
+      padding-left: 0.6rem;
+      margin: 0 0 1rem;
+    }
+
+    /* ---- コンセプト本文 ---- */
+    .concept-body {
+      background: none;
+      padding: 2.2rem 0;
+      margin-bottom: 3rem;
+    }
+
+    .concept-body p {
+      margin: 0 0 2.2rem;
+      font-size: 0.95rem;
+      line-height: 2;
+      letter-spacing: 0.03em;
+      color: #444;
+      text-align: left;
+    }
+
+    .concept-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .concept-lead {
+      font-size: 1.15rem !important;
+      font-weight: 700 !important;
+      color: var(--text-color) !important;
+      letter-spacing: 0.01em !important;
+      margin-bottom: 2rem !important;
+    }
+
+    /* ---- Before / After ---- */
+    .ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .ba-col {
+      padding: 1.2rem;
+      background: #f8f8f8;
+      border-radius: 8px;
+    }
+
+    .ba-col.after-col {
+      background: #fffbe6;
+      border: 2px solid var(--accent-color);
+    }
+
+    .ba-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #aaa;
+    }
+
+    .ba-header.after {
+      color: var(--text-color);
+    }
+
+    .ba-header.after::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--accent-color);
+      flex-shrink: 0;
+    }
+
+    .ba-item {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #555;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--grid-color);
+      letter-spacing: 0.02em;
+    }
+
+    .ba-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    /* ---- 料金 ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .price-card {
+      border: 2px solid var(--text-color);
+      padding: 1.4rem;
+      border-radius: 8px;
+      background: #fff;
+    }
+
+    .price-card.featured {
+      background: var(--text-color);
+      color: var(--bg-color);
+    }
+
+    .price-badge {
+      display: inline-block;
+      background: var(--accent-color);
+      color: var(--text-color);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      padding: 0.2em 0.6em;
+      margin-bottom: 0.7rem;
+      border-radius: 4px;
+    }
+    .price-badge--gray {
+      background: #d0d0d0;
+    }
+
+    .price-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      letter-spacing: 0.06em;
+    }
+
+    .price-amount {
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
+
+    .price-amount span {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .price-note {
+      font-size: 0.72rem;
+      font-weight: 700;
+      opacity: 0.55;
+      margin-top: 0.4rem;
+    }
+
+    /* ---- Q&A ---- */
+    .qa-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .qa-item {
+      border-top: 1px solid var(--grid-color);
+    }
+
+    .qa-item:last-child {
+      border-bottom: 1px solid var(--grid-color);
+    }
+
+    .qa-item summary {
+      list-style: none;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6em;
+      padding: 0.9rem 0;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.6;
+    }
+
+    .qa-item summary::-webkit-details-marker { display: none; }
+
+    .qa-item summary::before {
+      content: 'Q';
+      flex-shrink: 0;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-color);
+      background: var(--accent-color);
+      padding: 0.1em 0.45em;
+    }
+
+    .qa-item summary::after {
+      content: '+';
+      margin-left: auto;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: #aaa;
+    }
+
+    .qa-item[open] summary::after {
+      content: '−';
+    }
+
+    .qa-a {
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: #555;
+      margin: 0;
+      padding: 0 0 1rem 1.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    /* ---- プレースホルダー ---- */
+    .placeholder {
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .placeholder-tag {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: #eee;
+      color: #aaa;
+      padding: 0.2em 0.7em;
+      border-radius: 4px;
+      margin-bottom: 0.6rem;
+    }
+
+    .placeholder p {
+      font-size: 0.8rem;
+      color: #bbb;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ---- プロフィール ---- */
+    .profile {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+    .profile-img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .profile-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 0.3rem;
+    }
+    .profile-title {
+      font-size: 0.8rem;
+      color: #888;
+      margin: 0 0 0.9rem;
+      letter-spacing: 0.03em;
+    }
+    .profile-bio {
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: #444;
+      margin: 0;
+    }
+
+    /* ---- サービス内容 ---- */
+    .service-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem 2rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .tag-item {
+      display: inline-block;
+      border: 1.5px solid var(--text-color);
+      border-radius: 999px;
+      padding: 0.4em 1em;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      background: #fff;
+      color: var(--text-color);
+    }
+
+    .service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: #444;
+      letter-spacing: 0.02em;
+    }
+
+    .service-item::before {
+      content: '';
+      flex-shrink: 0;
+      width: 8px;
+      height: 8px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      margin-top: 0.45em;
+    }
+
+    .service-item--check::before {
+      content: '✓';
+      width: auto;
+      height: auto;
+      background: none;
+      border-radius: 0;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-color);
+      margin-top: 0;
+    }
+
+    /* ---- CTA ---- */
+    .cta-btn {
+      display: block;
+      width: 100%;
+      background: var(--text-color);
+      color: var(--bg-color);
+      border: none;
+      padding: 1.4rem 2rem;
+      border-radius: 8px;
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: 2rem;
+      letter-spacing: 0.1em;
+      transition: background 0.7s ease, color 0.7s ease;
+      box-sizing: border-box;
+    }
+
+    .cta-btn:hover {
+      background: var(--accent-color);
+      color: var(--text-color);
+    }
+
+    /* ---- 注意事項 ---- */
+    .notes {
+      margin-bottom: 2.5rem;
+    }
+    .notes summary {
+      font-size: 0.78rem;
+      color: #999;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .notes summary::before {
+      content: '▶';
+      font-size: 0.6rem;
+      transition: transform 0.2s;
+    }
+    .notes[open] summary::before {
+      transform: rotate(90deg);
+    }
+    .notes-list {
+      margin: 0.8rem 0 0;
+      padding: 0 0 0 1rem;
+      list-style: none;
+    }
+    .notes-list li {
+      font-size: 0.75rem;
+      color: #999;
+      line-height: 1.8;
+      padding: 0.3rem 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .notes-list li::before {
+      content: '・';
+    }
+
+    /* ---- アニメーション ---- */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.88); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-title {
+      animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.15s;
+    }
+    .modal-concept {
+      animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.35s;
+    }
+    .concept-body {
+      animation: fadeInUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+      animation-delay: 0.55s;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 2.2s cubic-bezier(0.22, 1, 0.36, 1), transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 2.2s cubic-bezier(0.22, 1, 0.36, 1), transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(30px);
+      transition: opacity 2.2s cubic-bezier(0.22, 1, 0.36, 1), transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-left.visible, .reveal-right.visible {
+      opacity: 1;
+      transform: translate(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.92);
+      transition: opacity 2.2s cubic-bezier(0.22, 1, 0.36, 1), transform 2.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal-scale.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+  </style>
+</head>
+<body>
+  <div class="lp-content">
+
+    <img
+      class="modal-img"
+      src="https://tsubuan820.github.io/Tsubuan/image2.jpg"
+      alt="demo"
+    >
+
+    <h2 class="modal-title">Notion個別サポート demo</h2>
+    <p class="modal-concept">「でも…」がなくなる。Notionが楽しくなるマンツーマンサポート</p>
+
+    <!-- ① 共感（悩み） -->
+    <div class="concept-body">
+      <p class="concept-lead">「Notion使ってみたい」「でも、私にもできるのかな…」「でも、難しそう…」</p>
+      <p>Notionをこれから始める、または始めたばかりの方からよく聞く言葉です。</p>
+      <p>つぶあんの個別サポートでは、<br>Notionのお手本（demo）をお見せしながら一緒にNotionを操作することで、<br>自分でNotion操作を自由に行えるようになる体験を届けます。</p>
+      <p>Zoomでの1on1だから、誰かに気兼ねすることもなく、<br>あなたのペースで、Notionをお気に入りに育てていきませんか。</p>
+    </div>
+
+    <!-- ② こんな方におすすめ -->
+    <div class="section">
+      <p class="section-label">こんな方におすすめ</p>
+      <div class="tag-list">
+        <span class="tag-item">Notionの基本のキから教えてほしい</span>
+        <span class="tag-item">1on1で好きなだけ質問したい</span>
+        <span class="tag-item">好きな日程を選びたい</span>
+        <span class="tag-item">テンプレートを使いこなしたい</span>
+        <span class="tag-item">仕事や生活の情報があちこちに散らばっている</span>
+        <span class="tag-item">おしゃれなデザインが好き</span>
+        <span class="tag-item">自分でいろいろ作るのが好き</span>
+      </div>
+    </div>
+
+    <!-- ④ サービス内容 -->
+    <div class="section">
+      <p class="section-label">60分でできること（一例）</p>
+      <div class="service-list">
+        <div class="service-item service-item--check">初心者向けレクチャー（機能別）</div>
+        <div class="service-item service-item--check">Notionお悩み相談</div>
+        <div class="service-item service-item--check">ページ添削（アドバイス）</div>
+        <div class="service-item service-item--check">テンプレートのカスタマイズ</div>
+        <div class="service-item service-item--check">1on1模写会</div>
+        <div class="service-item service-item--check">カバー画像制作レクチャーなど</div>
+      </div>
+    </div>
+
+    <!-- ⑤ 実績・声 -->
+    <div class="section">
+      <p class="section-label">受講者の声</p>
+      <div class="placeholder">
+        <div class="placeholder-tag">準備中</div>
+      </div>
+    </div>
+
+    <!-- プロフィール -->
+    <div class="section">
+      <p class="section-label">講師紹介</p>
+      <div class="profile">
+        <img src="lp_2.PNG" alt="つぶあん" class="profile-img">
+        <div>
+          <p class="profile-name">つぶあん</p>
+          <p class="profile-title">Notionアンバサダー／グラフィックデザイナー</p>
+          <p class="profile-bio">「Notionをもっとお気に入りに」をテーマに、個人＆初心者向けのNotion活用やページデザインアイデアを発信しています。2025年9月に「かんたん！はかどる！Notionデザイン＆アイデアブック」を出版しました。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ⑥ 料金 -->
+    <div class="section">
+      <p class="section-label">モニター価格</p>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div class="price-badge price-badge--gray">先着3名</div>
+          <div class="price-name">単発 1on1</div>
+          <div class="price-amount">7,000<span>円 / 回</span></div>
+          <div class="price-note">Zoom 60分 · 随時受付</div>
+        </div>
+        <div class="price-card">
+          <div class="price-badge">先着3名 · おすすめ</div>
+          <div class="price-name">3回セット</div>
+          <div class="price-amount">20,000<span>円</span></div>
+          <div class="price-note">有効期限3ヶ月</div>
+          <div class="price-note">期間中の公式LINEチャット無制限</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q&A -->
+    <div class="section">
+      <p class="section-label">よくある質問（クリックで開きます）</p>
+      <div class="qa-list">
+        <details class="qa-item">
+          <summary>どんな相談をしていいかわからないのですが…</summary>
+          <p class="qa-a">Notionのお悩みなら何でも大丈夫です。機能や操作の疑問・ページのアドバイス・テンプレートのカスタマイズなど、あなたの「ちょっと困った」をそのまま持ってきてください。</p>
+        </details>
+        <details class="qa-item">
+          <summary>初心者ですが大丈夫ですか？</summary>
+          <p class="qa-a">大歓迎です。Notion完全初心者の方から対応させていただきます。一緒にゆっくりNotionに慣れていきましょう。</p>
+        </details>
+        <details class="qa-item">
+          <summary>1on1はどんなツールで行いますか？</summary>
+          <p class="qa-a">Zoomで行います。事前にアプリのインストールが必要ですが、無料で使えます。初めての方もご安心ください。</p>
+        </details>
+        <details class="qa-item">
+          <summary>申し込みから利用までの流れを教えてください</summary>
+          <p class="qa-a">下のボタンからお申し込み → メールにて日程調整やお支払いのご案内 → Zoom実施、の流れです。</p>
+        </details>
+        <details class="qa-item">
+          <summary>モニター条件はありますか？</summary>
+          <p class="qa-a">Notion経験入門者〜中級者（データベースを使ったページレイアウトを自分で行える程度）の方。受講後のアンケート回答と、感想のSNS・LP掲載OKをお願いしています。</p>
+        </details>
+      </div>
+    </div>
+
+    <details class="notes">
+      <summary>ご利用にあたっての注意事項</summary>
+      <ul class="notes-list">
+        <li>3回セットの有効期限はご購入の翌日から3ヶ月です。期限間近のアナウンスなどはいたしませんのでスケジュール管理をお願いいたします。</li>
+        <li>未消化分については返金や期限の延長は不可となります。</li>
+        <li>急病などの場合やむを得ない場合に限り、1回のサポートにつき1回まで日程の変更が可能です。</li>
+        <li>モニター枠は 21:30 開始（60分）のみとなっております。また、ごく稀に2歳次男の夜泣き対応で離席する場合があります。その際は離席分の時間を延長し対応させていただきますのでご了承ください。</li>
+        <li>当サービスはNotion入門者〜中級者（データベースを使ったページレイアウトを自分で行える程度）の方を対象としています。複雑なページ構築やオートメーション、エンタープライズプランのアドバイスなどは対応できかねますのでご了承ください。</li>
+        <li>モニター様へは「ご受講後のアンケート」「ご感想のSNSやLP掲載」をお願いしております。</li>
+      </ul>
+    </details>
+
+    <a class="cta-btn" href="https://tsubuan.notion.site/3532674f5c58803d921ef2899ccb3f84?pvs=105" target="_blank">
+      個別サポートに申し込む
+    </a>
+
+    <p style="text-align:center; font-size:0.72rem; color:#bbb; margin-top:3rem;">© 2026 TSUBUAN DESIGN</p>
+  </div>
+
+  <script>
+    // セクションはふわっと上から
+    document.querySelectorAll('.section').forEach(el => el.classList.add('reveal'));
+
+    // 価格カードはふわっと上から（時間差）
+    document.querySelectorAll('.price-card').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = `${i * 0.15}s`;
+    });
+
+    // プロフィール画像はスケールイン
+    const profileImg = document.querySelector('.profile-img');
+    if (profileImg) profileImg.classList.add('reveal-scale');
+
+    // タグはゆっくり時間差
+    document.querySelectorAll('.tag-item').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = `opacity 2.2s cubic-bezier(0.22,1,0.36,1) ${i * 0.3}s, transform 2.2s cubic-bezier(0.22,1,0.36,1) ${i * 0.3}s`;
+    });
+
+    // チェックリストは少し速め
+    document.querySelectorAll('.service-item').forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = `opacity 1.8s cubic-bezier(0.22,1,0.36,1) ${i * 0.15}s, transform 1.8s cubic-bezier(0.22,1,0.36,1) ${i * 0.15}s`;
+    });
+
+    // まとめてObserver
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.65 });
+
+    document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => observer.observe(el));
+
+    // タグ・チェックリスト用
+    const itemObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          itemObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.65 });
+
+    document.querySelectorAll('.tag-item, .service-item').forEach(el => itemObserver.observe(el));
+
+
+  </script>
+</body>
+</html>
