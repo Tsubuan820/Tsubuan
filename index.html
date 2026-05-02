@@ -264,7 +264,7 @@
             */
             works: [
                 { title: "かんたん！はかどる！<br>Notionデザイン＆アイデアブック", category: 'Notionの基礎からページデザイン模写まで盛りだくさんの一冊です。テンプレートなどの豪華特典も。Notionライフのおともにぜひ！<br><br><a href="https://amzn.to/4qqqevo" target="_blank">ご購入はこちら →</a>' }, // image1.jpg
-                { title: "Notion個別サポート（Coming soon）", category: "マンツーマンで寄り添う３か月のサポートサービス", modalText: "マンツーマンで寄り添う３か月のサポートサービス。複数回の1on1 + チャット無制限 + 限定コミュニティへの参加でNotionの世界を広げてみませんか。ただいまサービス準備中！" },   // image2.jpg
+                { title: "Notion個別サポート demo", category: "「でも…」がなくなる。Notionが楽しくなるマンツーマンサポート", link: "demo.html" },   // image2.jpg
                 { title: "Notion×デザイン講座（Coming soon）", category: "オンラインセミナーのお知らせ" },
                 { title: "Notionテンプレート", category: '<a href="https://www.notion.so/@tsubuan" target="_blank">公開中のテンプレートはこちら →</a>' },  // image4.jpg
                 { title: "デザイン制作", category: "Kindle表紙など（受付お休み中です）" },      // image5.jpg
@@ -331,7 +331,7 @@
                     <div class="work-cat">${work.category}</div>
                 `;
                 
-                div.onclick = () => openModal(work, imgPath);
+                div.onclick = () => work.link ? window.location.href = work.link : openModal(work, imgPath);
                 list.appendChild(div);
             }
 
