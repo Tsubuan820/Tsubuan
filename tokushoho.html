@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特定商取引法に基づく表記 - TSUBUAN DESIGN</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800;900&family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent-color: #fbe251;
+      --text-color: #333333;
+      --bg-color: #faf9f7;
+    }
+    body {
+      font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 4rem;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      border-bottom: 4px solid var(--text-color);
+      padding-bottom: 1rem;
+    }
+    .info {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 0.8rem 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .info dt {
+      font-weight: 700;
+      color: var(--text-color);
+    }
+    .info dd {
+      margin: 0;
+      color: #555;
+    }
+    @media (max-width: 600px) {
+      .info {
+        grid-template-columns: 1fr;
+        gap: 0.2rem;
+      }
+      .info dd {
+        margin-bottom: 0.8rem;
+      }
+    }
+    ul {
+      margin: 0 0 1rem;
+      padding-left: 1.5rem;
+      color: #555;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    a {
+      color: var(--text-color);
+      text-decoration: underline;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent-color);
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 3rem;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      body { padding: 2rem 1.25rem; }
+      h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>特定商取引法に基づく表記</h1>
+
+    <dl class="info">
+      <dt>事業者名</dt>
+      <dd>TSUBUAN DESIGN</dd>
+
+      <dt>運営責任者</dt>
+      <dd>小林 玲子</dd>
+
+      <dt>連絡先</dt>
+      <dd>tsubuan.design@gmail.com</dd>
+
+      <dt>販売価格</dt>
+      <dd>各サービスページに表示された税込価格をご覧ください。</dd>
+
+      <dt>支払方法</dt>
+      <dd>銀行振込</dd>
+
+      <dt>支払時期</dt>
+      <dd>お申し込み後、メールにてご案内する期日までにお振込みください。</dd>
+
+      <dt>サービス提供時期</dt>
+      <dd>お支払い確認後、メールにて日程調整の上、Zoomにて提供いたします。</dd>
+
+      <dt>返品について</dt>
+      <dd>サービスの性質上、返品・返金はお受けできません。</dd>
+    </dl>
+
+    <a href="demo.html" class="back-link">← 申込ページに戻る</a>
+  </div>
+</body>
+</html>
